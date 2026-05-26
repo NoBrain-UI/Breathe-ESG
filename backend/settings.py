@@ -1,10 +1,12 @@
 from pathlib import Path
+import os
+import dj_database_url
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-@7^ya!&#&ryl15gw#z(()@+b=2q=$dbo4ykome7$+z_gy_x24b'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -80,10 +82,12 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # DATABASE
 # -----------------------------
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(
+        os.getenv(
+            "DATABASE_URL",
+            "postgresql://postgres:yEKmdzDxiyXvwcSQJMHhQMXFkqHGztTJ@postgres.railway.internal:5432/railway"
+        )
+    )
 }
 
 
@@ -149,7 +153,4 @@ REST_FRAMEWORK = {
 # -----------------------------
 # CORS
 # -----------------------------
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://localhost:5173",
-]
+CORS_ALLOW_ALL_ORIGINS = True
