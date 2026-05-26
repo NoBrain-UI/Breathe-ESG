@@ -82,15 +82,10 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # DATABASE
 # -----------------------------
 DATABASES = {
-    'default': dj_database_url.parse(
-        os.getenv(
-            "DATABASE_URL",
-            "postgresql://postgres:yEKmdzDxiyXvwcSQJMHhQMXFkqHGztTJ@postgres.railway.internal:5432/railway"
-        )
+    'default': dj_database_url.config(
+        default=os.environ.get("DATABASE_URL")
     )
 }
-
-
 # -----------------------------
 # PASSWORD VALIDATION
 # -----------------------------
