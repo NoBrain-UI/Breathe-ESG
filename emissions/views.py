@@ -25,7 +25,18 @@ from .models import Tenant, IngestionJob, EmissionRecord
 from .parsers.sap_parser import SAPIngestionParser
 from .parsers.utility_parser import UtilityIngestionParser
 from .parsers.travel_parser import TravelIngestionParser
+from django.contrib.auth.models import User
 
+try:
+    if not User.objects.filter(username="analyst").exists():
+        User.objects.create_superuser(
+            "analyst",
+            "analyst@gmail.com",
+            "breatheesg"
+        )
+        print("SUPERUSER CREATED")
+except Exception as e:
+    print(e)
 
 # ─────────────────────────────────────────
 # Serializers
